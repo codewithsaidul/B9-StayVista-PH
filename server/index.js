@@ -86,10 +86,19 @@ async function run() {
 
 
     // =====================Rooms Releted API======================== //
+
     //Get The All Rooms
     app.get('/rooms', async(req, res) => {
       const roomsResult = await roomdsCollection.find().toArray();
       res.send(roomsResult)
+    })
+
+    // Get The Single Room Data With Id
+    app.get('/rooms/:id', async(req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id)};
+      const result = await roomdsCollection.findOne(query)
+      res.send(result)
     })
 
     // Send a ping to confirm a successful connection
